@@ -39,8 +39,11 @@
       gap: 10px;
       padding: 10px;
       cursor: pointer;
-      .btn-primary {
+      .button-container {
         margin-left: auto;
+        button {
+          margin-left: 10px;
+        }
       }
     }
   }
