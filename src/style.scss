@@ -1,0 +1,102 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.main-content {
+  display: flex;
+  min-height: 100vh;
+}
+.sidebar {
+  flex-basis: 250px;
+  padding-left: 10px;
+  .menu-container {
+    .items {
+      padding-left: 10px;
+    }
+  }
+}
+.task-container {
+  flex-grow: 1;
+  .task-container-head {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+}
+.task-form {
+  .input-container {
+    display: flex;
+    padding: 10px;
+    input {
+      flex-grow: 1;
+    }
+  }
+  .task-lists {
+    .task-list {
+      display: flex;
+      gap: 10px;
+      padding: 10px;
+      cursor: pointer;
+      .btn-primary {
+        margin-left: auto;
+      }
+    }
+  }
+}
+.edit-bar {
+  background-color: #ddd;
+  height: 100vh;
+  position: absolute;
+  width: 500px;
+  right: 0;
+  top: 0;
+  padding: 25px;
+  z-index: 1;
+  input,
+  textarea {
+    width: 100%;
+  }
+  textarea {
+    height: 100px;
+  }
+  .header {
+    margin-bottom: 25px;
+  }
+  .task-item {
+    margin-bottom: 15px;
+  }
+}
+// .main-content {
+//   display: flex;
+// }
+// .sidebar {
+//   position: fixed;
+//   top: 10%;
+//   left: 10px;
+//   width: 250px;
+//   overflow-y: auto;
+//   border: solid 1px green;
+//   height: 100%;
+// }
+// .task-container {
+//   position: relative;
+//   left: 265px;
+//   top: 10%;
+//   width: calc(100% - 350px);
+//   padding: 50px;
+//   .task-container-head {
+//     display: flex;
+//     justify-content: flex-end;
+//     gap: 15px;
+//   }
+// }
+// .task-form {
+//   .input-container {
+//     display: flex;
+//     input {
+//       flex-grow: 1;
+//     }
+//   }
+// }
