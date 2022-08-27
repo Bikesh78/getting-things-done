@@ -14,7 +14,7 @@ function App() {
       {
         id: 1,
         taskName: "This is test name",
-        takDetail: "",
+        taskDetail: "",
         projectName: "Get healthy",
         startDate: "",
         endDate: "",
@@ -23,12 +23,32 @@ function App() {
         givenTo: "",
       },
     ],
+    editedTask: "",
+    showEditBar: false,
   };
   const reducer = (state, action) => {
     switch (action.type) {
       case "addTask":
         // localStorage.setItem("gtdTask", state.taskList);
         return { ...state, taskList: [...state.taskList, action.payload] };
+      case "getTaskInfo":
+        return {
+          ...state,
+          editedTask: state.taskList.filter((task) => task.id === action.id),
+        };
+      case "editTask":
+        return {
+          ...state,
+          taskList: state.taskList.map((task, index) => {
+            if (task.id === action.payload.id) {
+              console.log("task ", action.payload);
+              return (state.taskList[index] = action.payload);
+            }
+            return state.taskList[index];
+          }),
+        };
+      case "showEditBar":
+        return { ...state, showEditBar: action.payload };
       default:
         throw new Error(`${action.type} action is not defined`);
     }

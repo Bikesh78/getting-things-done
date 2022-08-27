@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid";
 import React, { useContext, useState } from "react";
 import { AppContext } from "../Context/AppContext";
 import EditBar from "./EditBar";
@@ -5,25 +6,28 @@ import EditBar from "./EditBar";
 const TaskContainer = () => {
   const { state, dispatch } = useContext(AppContext);
   const { taskList } = state;
-  const [showEditBar, setShowEditBar] = useState(false);
+  // const [showEditBar, setShowEditBar] = useState(false);
   const [taskInput, setTaskInput] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch({
-      type: "addTask",
-      payload: {
-        id: new Date().getMilliseconds(),
-        taskName: taskInput,
-        takDetail: "",
-        projectName: "",
-        startDate: "",
-        endDate: "",
-        isCompleted: false,
-        context: "",
-        givenTo: "",
-      },
-    });
+    if (taskInput) {
+      dispatch({
+        type: "addTask",
+        payload: {
+          id: nanoid(),
+          taskName: taskInput,
+          taskDetail: "",
+          projectName: "",
+          startDate: "",
+          endDate: "",
+          isCompleted: false,
+          context: "",
+          givenTo: "",
+        },
+      });
+      setTaskInput("");
+    }
     console.log("state", state);
   }
   console.log("state", state);
@@ -44,32 +48,25 @@ const TaskContainer = () => {
           <button className="btn-primary">Add</button>
         </div>
         <div className="task-lists">
-          {/* <div className="task-list" onClick={(e) => setShowEditBar(true)}>
-            <input type="checkbox" name="" id="" />
-            <p className="task">Create Sidebar</p>
-            <div className="button-container">
-              <button
-                className="btn-primary"
-                onClick={(e) => setShowEditBar(true)}
-              >
-                Edit
-              </button>
-              <button className="btn-primary">Delete</button>
-            </div>
-          </div> */}
           {taskList &&
             taskList.map((task) => (
               <div
                 key={task.id}
                 className="task-list"
-                onClick={(e) => setShowEditBar(true)}
+                // onClick={(e) => setShowEditBar(true)}
               >
                 <input type="checkbox" name="" id="" />
                 <p className="task">{task.taskName}</p>
                 <div className="button-container">
                   <button
                     className="btn-primary"
-                    onClick={(e) => setShowEditBar(true)}
+                    onClick={(e) => {
+                      dispatch({
+                        type: "showEditBar",
+                        payload: true,
+                      });
+                      dispatch({ type: "getTaskInfo", id: task.id });
+                    }}
                   >
                     Edit
                   </button>
@@ -79,7 +76,7 @@ const TaskContainer = () => {
             ))}
         </div>
       </form>
-      {showEditBar && <EditBar />}
+      {state.showEditBar && <EditBar />}
     </div>
   );
 };
