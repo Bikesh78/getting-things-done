@@ -24,7 +24,7 @@ const EditBar = () => {
         projectName: projectName,
         startDate: startDate,
         endDate: endDate,
-        isCompleted: false,
+        isCompleted: isCompleted,
         context: context,
         givenTo: "",
       },
@@ -127,7 +127,7 @@ const EditBar = () => {
                 name=""
                 id=""
                 checked={isCompleted}
-                onChange={(e) => setIsCompleted(e.target.value)}
+                onChange={(e) => setIsCompleted(e.target.checked)}
               />
             </label>
           </div>

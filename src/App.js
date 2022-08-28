@@ -8,6 +8,10 @@ import "./style.scss";
 function App() {
   const initialState = {
     taskList: JSON.parse(localStorage.getItem("gtdTask")) || [],
+    editedTask: "",
+    showEditBar: false,
+    completedTask: [],
+    incompleteTask: [],
   };
   // const initialState = {
   //   taskList: [
@@ -52,6 +56,18 @@ function App() {
           taskList: editedTask,
         };
         localStorage.setItem("gtdTask", JSON.stringify(state.taskList));
+        return state;
+      case "changeTaskStatus":
+        state = {
+          ...state,
+          taskList: state.taskList.map((task, index) => {
+            if (task.id === action.id) {
+              // console.log(task);
+              return { ...task, isCompleted: action.status };
+            }
+            return state.taskList[index];
+          }),
+        };
         return state;
       case "showEditBar":
         return { ...state, showEditBar: action.payload };

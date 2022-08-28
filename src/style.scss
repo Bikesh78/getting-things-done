@@ -11,8 +11,15 @@
   flex-basis: 250px;
   padding-left: 10px;
   .menu-container {
+    .menu-header {
+      margin-bottom: 5px;
+    }
     .items {
       padding-left: 10px;
+      margin-bottom: 10px;
+    }
+    .item {
+      margin-bottom: 5px;
     }
   }
 }
@@ -23,6 +30,9 @@
     justify-content: flex-end;
     gap: 15px;
     margin-bottom: 15px;
+    .task-head-title {
+      cursor: pointer;
+    }
   }
 }
 .task-form {
@@ -50,7 +60,7 @@
 }
 .edit-bar {
   background-color: #ddd;
-  height: 100vh;
+  min-height: 100vh;
   position: absolute;
   width: 500px;
   right: 0;

@@ -6,9 +6,19 @@ import EditBar from "./EditBar";
 const TaskContainer = () => {
   const { state, dispatch } = useContext(AppContext);
   // const { taskList } = state;
-  // const [showEditBar, setShowEditBar] = useState(false);
   const [taskInput, setTaskInput] = useState("");
+  // const [renderedTask, setRenderedTask] = useState([]);
+  let renderedTask = [];
+  const [showIncompleteTask, setShowIncompleteTask] = useState(false);
 
+  if (!showIncompleteTask) {
+    console.log(state);
+    renderedTask =
+      state.taskList && state.taskList.filter((task) => !task.isCompleted);
+  } else {
+    renderedTask =
+      state.taskList && state.taskList.filter((task) => task.isCompleted);
+  }
   function handleSubmit(e) {
     e.preventDefault();
     if (taskInput) {
@@ -30,16 +40,23 @@ const TaskContainer = () => {
     }
   }
   console.log("state", state);
-  if (!state) {
-    return <p>Loading</p>;
-  }
   // console.log("task list", taskList);
   // console.log("state", state);
   return (
     <div className="task-container">
       <div className="task-container-head">
-        <div className="task-head-title">Completed</div>
-        <div className="task-head-title">Incompleted</div>
+        <div
+          className="task-head-title"
+          onClick={() => setShowIncompleteTask(false)}
+        >
+          Incompleted
+        </div>
+        <div
+          className="task-head-title"
+          onClick={() => setShowIncompleteTask(true)}
+        >
+          Completed
+        </div>
       </div>
       <form className="task-form" onSubmit={handleSubmit}>
         <div className="input-container">
@@ -51,14 +68,23 @@ const TaskContainer = () => {
           />
           <button className="btn-primary">Add</button>
         </div>
-        {state.taskList &&
-          state.taskList.map((task) => (
+        {renderedTask &&
+          renderedTask.map((task) => (
             <div className="task-lists" key={task.id}>
               <div
                 className="task-list"
                 // onClick={(e) => setShowEditBar(true)}
               >
-                <input type="checkbox" name="" id="" />
+                <input
+                  type="checkbox"
+                  onChange={(e) =>
+                    dispatch({
+                      type: "changeTaskStatus",
+                      id: task.id,
+                      status: e.target.checked,
+                    })
+                  }
+                />
                 <p className="task">{task.taskName}</p>
                 <div className="button-container">
                   <button
