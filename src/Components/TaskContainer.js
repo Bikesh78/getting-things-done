@@ -1,5 +1,6 @@
 import { nanoid } from "nanoid";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { isToday, parseISO } from "date-fns";
 import { AppContext } from "../Context/AppContext";
 import EditBar from "./EditBar";
 
@@ -11,13 +12,80 @@ const TaskContainer = () => {
   let renderedTask = [];
   const [showIncompleteTask, setShowIncompleteTask] = useState(false);
 
+  switch (state.currentPage) {
+    case "all":
+      renderedTask = state.taskList;
+      break;
+    case "inbox":
+      renderedTask =
+        state.taskList &&
+        state.taskList.filter(
+          (task) => task.category === "inbox" || task.category === ""
+        );
+      break;
+    case "today":
+      console.log("eeeee");
+      renderedTask =
+        state.taskList &&
+        state.taskList.filter((task) => isToday(parseISO(task.endDate)));
+      break;
+    case "next":
+      renderedTask =
+        state.taskList &&
+        state.taskList.filter((task) => task.category === "next");
+      break;
+    case "scheduled":
+      renderedTask =
+        state.taskList &&
+        state.taskList.filter((task) => task.startDate || task.endDate);
+      break;
+    case "someday":
+      renderedTask =
+        state.taskList &&
+        state.taskList.filter((task) => task.category === "someday");
+      break;
+    case "waiting":
+      renderedTask =
+        state.taskList &&
+        state.taskList.filter((task) => task.category === "waiting-for");
+      break;
+    case "reference":
+      renderedTask =
+        state.taskList &&
+        state.taskList.filter((task) => task.category === "reference");
+      break;
+    default:
+      // throw new Error(`Condition for ${state.currentPage} is not defined`);
+      if (
+        state.taskList.find((task) => task.projectName === state.currentPage)
+      ) {
+        console.log("in here", state.currentPage);
+        renderedTask =
+          state.taskList &&
+          state.taskList.filter(
+            (task) => task.projectName === state.currentPage
+          );
+      } else if (
+        state.taskList.find((task) => task.givenTo === state.currentPage)
+      ) {
+        renderedTask =
+          state.taskList &&
+          state.taskList.filter((task) => task.givenTo === state.currentPage);
+      } else if (
+        state.taskList.find((task) => task.context === state.currentPage)
+      ) {
+        renderedTask =
+          state.taskList &&
+          state.taskList.filter((task) => task.context === state.currentPage);
+      }
+  }
   if (!showIncompleteTask) {
-    console.log(state);
-    renderedTask =
-      state.taskList && state.taskList.filter((task) => !task.isCompleted);
+    renderedTask.forEach((task) => {
+      console.log("dddd", task.isCompleted);
+    });
+    renderedTask = renderedTask.filter((task) => !task.isCompleted);
   } else {
-    renderedTask =
-      state.taskList && state.taskList.filter((task) => task.isCompleted);
+    renderedTask = renderedTask.filter((task) => task.isCompleted);
   }
   function handleSubmit(e) {
     e.preventDefault();
@@ -34,6 +102,7 @@ const TaskContainer = () => {
           isCompleted: false,
           context: "",
           givenTo: "",
+          category: "",
         },
       });
       setTaskInput("");
@@ -77,6 +146,7 @@ const TaskContainer = () => {
               >
                 <input
                   type="checkbox"
+                  checked={task.isCompleted}
                   onChange={(e) =>
                     dispatch({
                       type: "changeTaskStatus",

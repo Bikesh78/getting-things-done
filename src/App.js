@@ -12,6 +12,7 @@ function App() {
     showEditBar: false,
     completedTask: [],
     incompleteTask: [],
+    currentPage: "all",
   };
   // const initialState = {
   //   taskList: [
@@ -68,6 +69,7 @@ function App() {
             return state.taskList[index];
           }),
         };
+        localStorage.setItem("gtdTask", JSON.stringify(state.taskList));
         return state;
       case "showEditBar":
         return { ...state, showEditBar: action.payload };
@@ -78,6 +80,8 @@ function App() {
         };
         localStorage.setItem("gtdTask", JSON.stringify(state.taskList));
         return state;
+      case "setCurrentPage":
+        return { ...state, currentPage: action.payload };
       default:
         throw new Error(`${action.type} action is not defined`);
     }

@@ -12,6 +12,7 @@ const EditBar = () => {
   const [startDate, setStartDate] = useState(editedTask[0].startDate);
   const [givenTo, setGivenTo] = useState(editedTask[0].givenTo);
   const [isCompleted, setIsCompleted] = useState(editedTask[0].isCompleted);
+  const [category, setCategory] = useState(editedTask[0].category);
   // console.log("edited task", editedTask[0].taskName);
   function handleSubmit(e) {
     e.preventDefault();
@@ -26,7 +27,8 @@ const EditBar = () => {
         endDate: endDate,
         isCompleted: isCompleted,
         context: context,
-        givenTo: "",
+        givenTo: givenTo,
+        category: category,
       },
     });
     dispatch({
@@ -73,6 +75,24 @@ const EditBar = () => {
                 value={projectName}
                 onChange={(e) => setProjectName(e.target.value)}
               />
+            </label>
+          </div>
+          <div className="task-organize task-item">
+            <label htmlFor="">
+              Category
+              <select
+                value={category}
+                onChange={(e) => {
+                  console.dir(e.target.value);
+                  setCategory(e.target.value);
+                }}
+              >
+                <option value="inbox">Inbox</option>
+                <option value="next">Next</option>
+                <option value="someday">Someday</option>
+                <option value="waiting-for">Waiting For</option>
+                <option value="reference">Reference</option>
+              </select>
             </label>
           </div>
           <div className="task-date task-item">
