@@ -17,7 +17,6 @@ const Sidebar = () => {
       contextList.push(task.context);
     }
   });
-  console.log(peopleList);
   return (
     <div className="sidebar">
       <div className="menu-container">

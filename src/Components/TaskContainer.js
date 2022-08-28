@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import React, { useContext, useEffect, useState } from "react";
-import { isToday, parseISO } from "date-fns";
+import { intervalToDuration, isPast, isToday, parseISO } from "date-fns";
 import { AppContext } from "../Context/AppContext";
 import EditBar from "./EditBar";
 
@@ -80,9 +80,6 @@ const TaskContainer = () => {
       }
   }
   if (!showIncompleteTask) {
-    renderedTask.forEach((task) => {
-      console.log("dddd", task.isCompleted);
-    });
     renderedTask = renderedTask.filter((task) => !task.isCompleted);
   } else {
     renderedTask = renderedTask.filter((task) => task.isCompleted);
@@ -111,6 +108,39 @@ const TaskContainer = () => {
   console.log("state", state);
   // console.log("task list", taskList);
   // console.log("state", state);
+  function getDueDate(endDate) {
+    const interval = intervalToDuration({
+      start: new Date(),
+      end: new Date(parseISO(endDate)),
+    });
+    console.log("interval", interval);
+    const { years, months, days, hours, minutes, seconds } = interval;
+    if (isPast(parseISO(endDate))) {
+      if (years) {
+        return `Due: ${years} Years Ago`;
+      } else if (months) {
+        return `Due: ${months} Months Ago`;
+      } else if (days) {
+        return ` Due: ${days} Days Ago`;
+      } else if (hours) {
+        return `Due: ${hours} Hours Ago`;
+      } else {
+        return `Due: ${minutes} Minutes Ago`;
+      }
+    } else {
+      if (years) {
+        return `Due: In ${years} years`;
+      } else if (months) {
+        return `Due: In ${months} months`;
+      } else if (days) {
+        return ` Due: In ${days} Day`;
+      } else if (hours) {
+        return `Due: In ${hours} Hours`;
+      } else {
+        return `Due: In ${minutes} Minutes`;
+      }
+    }
+  }
   return (
     <div className="task-container">
       <div className="task-container-head">
@@ -156,27 +186,32 @@ const TaskContainer = () => {
                   }
                 />
                 <p className="task">{task.taskName}</p>
-                <div className="button-container">
-                  <button
-                    className="btn-primary"
-                    onClick={(e) => {
-                      dispatch({
-                        type: "showEditBar",
-                        payload: true,
-                      });
-                      dispatch({ type: "getTaskInfo", id: task.id });
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="btn-primary"
-                    onClick={() => {
-                      dispatch({ type: "deleteTask", id: task.id });
-                    }}
-                  >
-                    Delete
-                  </button>
+                <div className="task-info">
+                  {task.endDate && (
+                    <p className="due-date">{getDueDate(task.endDate)}</p>
+                  )}
+                  <div className="button-container">
+                    <button
+                      className="btn-primary"
+                      onClick={(e) => {
+                        dispatch({
+                          type: "showEditBar",
+                          payload: true,
+                        });
+                        dispatch({ type: "getTaskInfo", id: task.id });
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="btn-primary"
+                      onClick={() => {
+                        dispatch({ type: "deleteTask", id: task.id });
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
