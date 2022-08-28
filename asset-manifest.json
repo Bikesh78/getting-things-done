@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/getting-things-done/static/css/main.3c889e07.css",
+    "main.js": "/getting-things-done/static/js/main.e92e4cae.js",
+    "static/js/787.0f7660d9.chunk.js": "/getting-things-done/static/js/787.0f7660d9.chunk.js",
+    "index.html": "/getting-things-done/index.html",
+    "main.3c889e07.css.map": "/getting-things-done/static/css/main.3c889e07.css.map",
+    "main.e92e4cae.js.map": "/getting-things-done/static/js/main.e92e4cae.js.map",
+    "787.0f7660d9.chunk.js.map": "/getting-things-done/static/js/787.0f7660d9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3c889e07.css",
+    "static/js/main.e92e4cae.js"
+  ]
+}
