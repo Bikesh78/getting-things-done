@@ -10,13 +10,14 @@ const Sidebar = () => {
     if (task.projectName && !projectList.includes(task.projectName)) {
       projectList.push(task.projectName);
     }
-    if (task.givenTo && !projectList.includes(task.givenTo)) {
+    if (task.givenTo && !peopleList.includes(task.givenTo)) {
       peopleList.push(task.givenTo);
     }
-    if (task.context && !projectList.includes(task.context)) {
+    if (task.context && !contextList.includes(task.context)) {
       contextList.push(task.context);
     }
   });
+  console.log(peopleList);
   return (
     <div className="sidebar">
       <div className="menu-container">
