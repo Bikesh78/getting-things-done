@@ -59,7 +59,6 @@ const TaskContainer = () => {
       if (
         state.taskList.find((task) => task.projectName === state.currentPage)
       ) {
-        console.log("in here", state.currentPage);
         renderedTask =
           state.taskList &&
           state.taskList.filter(
@@ -113,7 +112,6 @@ const TaskContainer = () => {
       start: new Date(),
       end: new Date(parseISO(endDate)),
     });
-    console.log("interval", interval);
     const { years, months, days, hours, minutes, seconds } = interval;
     if (isPast(parseISO(endDate))) {
       if (years) {
@@ -187,8 +185,14 @@ const TaskContainer = () => {
                 />
                 <p className="task">{task.taskName}</p>
                 <div className="task-info">
+                  {task.context && (
+                    <p className="given-to">{`${task.context}`}</p>
+                  )}
                   {task.endDate && (
                     <p className="due-date">{getDueDate(task.endDate)}</p>
+                  )}
+                  {task.givenTo && (
+                    <p className="given-to">{`Given To: ${task.givenTo}`}</p>
                   )}
                   <div className="button-container">
                     <button
