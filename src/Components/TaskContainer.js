@@ -5,7 +5,7 @@ import EditBar from "./EditBar";
 
 const TaskContainer = () => {
   const { state, dispatch } = useContext(AppContext);
-  const { taskList } = state;
+  // const { taskList } = state;
   // const [showEditBar, setShowEditBar] = useState(false);
   const [taskInput, setTaskInput] = useState("");
 
@@ -28,8 +28,12 @@ const TaskContainer = () => {
       });
       setTaskInput("");
     }
-    console.log("state", state);
   }
+  console.log("state", state);
+  if (!state) {
+    return <p>Loading</p>;
+  }
+  // console.log("task list", taskList);
   // console.log("state", state);
   return (
     <div className="task-container">
@@ -47,11 +51,10 @@ const TaskContainer = () => {
           />
           <button className="btn-primary">Add</button>
         </div>
-        <div className="task-lists">
-          {taskList &&
-            taskList.map((task) => (
+        {state.taskList &&
+          state.taskList.map((task) => (
+            <div className="task-lists" key={task.id}>
               <div
-                key={task.id}
                 className="task-list"
                 // onClick={(e) => setShowEditBar(true)}
               >
@@ -80,8 +83,8 @@ const TaskContainer = () => {
                   </button>
                 </div>
               </div>
-            ))}
-        </div>
+            </div>
+          ))}
       </form>
       {state.showEditBar && <EditBar />}
     </div>

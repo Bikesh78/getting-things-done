@@ -33,6 +33,8 @@ const EditBar = () => {
       type: "showEditBar",
       payload: false,
     });
+    // dispatch({ type: "saveToLocalStorage" });
+    // localStorage.setItem("gtdTask", JSON.stringify(state.taskList));
   }
   // console.log(state);
   return (
