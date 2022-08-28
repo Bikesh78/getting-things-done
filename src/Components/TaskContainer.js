@@ -30,7 +30,7 @@ const TaskContainer = () => {
     }
     console.log("state", state);
   }
-  console.log("state", state);
+  // console.log("state", state);
   return (
     <div className="task-container">
       <div className="task-container-head">
@@ -70,7 +70,14 @@ const TaskContainer = () => {
                   >
                     Edit
                   </button>
-                  <button className="btn-primary">Delete</button>
+                  <button
+                    className="btn-primary"
+                    onClick={() => {
+                      dispatch({ type: "deleteTask", id: task.id });
+                    }}
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             ))}

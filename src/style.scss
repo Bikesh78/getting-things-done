@@ -56,7 +56,11 @@
   right: 0;
   top: 0;
   padding: 25px;
-  z-index: 1;
+  z-index: 5;
+  label {
+    display: flex;
+    gap: 10px;
+  }
   input,
   textarea {
     width: 100%;
@@ -70,6 +74,14 @@
   .task-item {
     margin-bottom: 15px;
   }
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
 }
 // .main-content {
 //   display: flex;

@@ -49,6 +49,11 @@ function App() {
         };
       case "showEditBar":
         return { ...state, showEditBar: action.payload };
+      case "deleteTask":
+        return {
+          ...state,
+          taskList: state.taskList.filter((task) => task.id !== action.id),
+        };
       default:
         throw new Error(`${action.type} action is not defined`);
     }
