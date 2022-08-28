@@ -56,91 +56,80 @@ const EditBar = () => {
         </div>
         <form className="edit-body" onSubmit={handleSubmit}>
           <div className="task-name task-item">
-            <label htmlFor="">
-              Task
-              <input
-                type="text"
-                value={taskName}
-                onChange={(e) => setTaskName(e.target.value)}
-                required
-              />
-            </label>
+            <label htmlFor="">Task</label>
+            <input
+              type="text"
+              value={taskName}
+              onChange={(e) => setTaskName(e.target.value)}
+              required
+            />
           </div>
 
           <div className="task-project task-item">
-            <label htmlFor="">
-              Project
-              <input
-                type="text"
-                value={projectName}
-                onChange={(e) => setProjectName(e.target.value)}
-              />
-            </label>
+            <label htmlFor="">Project</label>
+            <input
+              type="text"
+              placeholder="Add project name"
+              value={projectName}
+              onChange={(e) => setProjectName(e.target.value)}
+            />
           </div>
           <div className="task-organize task-item">
-            <label htmlFor="">
-              Category
-              <select
-                value={category}
-                onChange={(e) => {
-                  console.dir(e.target.value);
-                  setCategory(e.target.value);
-                }}
-              >
-                <option value="inbox">Inbox</option>
-                <option value="next">Next</option>
-                <option value="someday">Someday</option>
-                <option value="waiting-for">Waiting For</option>
-                <option value="reference">Reference</option>
-              </select>
-            </label>
+            <label htmlFor="">Category</label>
+            <select
+              value={category}
+              onChange={(e) => {
+                console.dir(e.target.value);
+                setCategory(e.target.value);
+              }}
+            >
+              <option value="inbox">Inbox</option>
+              <option value="next">Next</option>
+              <option value="someday">Someday</option>
+              <option value="waiting-for">Waiting For</option>
+              <option value="reference">Reference</option>
+            </select>
           </div>
           <div className="task-date task-item">
-            <label htmlFor="">
-              Start Date
-              <input
-                type="datetime-local"
-                name=""
-                id=""
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-              />
-            </label>
+            <label htmlFor="">Start Date </label>
+            <input
+              type="datetime-local"
+              name=""
+              id=""
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+            />
           </div>
           <div className="task-due-date task-item">
-            <label htmlFor="">
-              Due Date
-              <input
-                type="datetime-local"
-                name=""
-                id=""
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-              />
-            </label>
+            <label htmlFor="">Due Date</label>
+            <input
+              type="datetime-local"
+              name=""
+              id=""
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+            />
           </div>
           <div className="task-context task-item">
-            <label htmlFor="">
-              Context
-              <input
-                type="text"
-                value={context}
-                onChange={(e) => setContext(e.target.value)}
-              />
-            </label>
+            <label htmlFor="">Context</label>
+            <input
+              type="text"
+              placeholder="Add Context"
+              value={context}
+              onChange={(e) => setContext(e.target.value)}
+            />
           </div>
           <div className="task-given task-item">
-            <label htmlFor="">
-              Given To
-              <input
-                type="text"
-                value={givenTo}
-                onChange={(e) => setGivenTo(e.target.value)}
-              />
-            </label>
+            <label htmlFor="">Given To</label>
+            <input
+              type="text"
+              placeholder="Add person"
+              value={givenTo}
+              onChange={(e) => setGivenTo(e.target.value)}
+            />
           </div>
           <div className="task-status task-item">
-            <label htmlFor="">
+            <label htmlFor="" style={{ display: "flex", flexBasis: "36%" }}>
               Completed
               <input
                 type="checkbox"
@@ -161,9 +150,22 @@ const EditBar = () => {
               {taskDetail}
             </textarea>
           </div>
-          <button type="submit" className="btn-primary">
-            Edit
-          </button>
+          <div className="button-container">
+            <button type="submit" className="btn-primary">
+              Edit
+            </button>
+            <button
+              className="btn-secondary"
+              onClick={() =>
+                dispatch({
+                  type: "showEditBar",
+                  payload: false,
+                })
+              }
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </div>
     </>

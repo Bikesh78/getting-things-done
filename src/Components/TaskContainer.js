@@ -146,13 +146,13 @@ const TaskContainer = () => {
           className="task-head-title"
           onClick={() => setShowIncompleteTask(false)}
         >
-          Incompleted
+          <p>Incompleted</p>
         </div>
         <div
           className="task-head-title"
           onClick={() => setShowIncompleteTask(true)}
         >
-          Completed
+          <p>Completed</p>
         </div>
       </div>
       <form className="task-form" onSubmit={handleSubmit}>
@@ -161,6 +161,7 @@ const TaskContainer = () => {
             type="text"
             placeholder="Add a task"
             value={taskInput}
+            autoFocus
             onChange={(e) => setTaskInput(e.target.value)}
           />
           <button className="btn-primary">Add</button>
@@ -186,13 +187,19 @@ const TaskContainer = () => {
                 <p className="task">{task.taskName}</p>
                 <div className="task-info">
                   {task.context && (
-                    <p className="given-to">{`${task.context}`}</p>
+                    <div className="task-context">
+                      <p>{`${task.context}`}</p>
+                    </div>
                   )}
                   {task.endDate && (
-                    <p className="due-date">{getDueDate(task.endDate)}</p>
+                    <div className="due-date">
+                      <p>{getDueDate(task.endDate)}</p>
+                    </div>
                   )}
                   {task.givenTo && (
-                    <p className="given-to">{`Given To: ${task.givenTo}`}</p>
+                    <div className="given-to">
+                      <p>{`Given To: ${task.givenTo}`}</p>
+                    </div>
                   )}
                   <div className="button-container">
                     <button

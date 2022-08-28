@@ -1,10 +1,26 @@
+$primary-color: #5742f1;
+$secondary-color: #ced3dd;
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  background-color: $secondary-color;
+  color: #333;
+}
+header {
+  background-color: $primary-color;
+  padding: 15px;
+  color: white;
+}
 .main-content {
   display: flex;
+  padding: 15px;
   min-height: 100vh;
 }
 .sidebar {
@@ -13,6 +29,7 @@
   .menu-container {
     .menu-header {
       margin-bottom: 5px;
+      font-weight: 600;
     }
     .items {
       padding-left: 10px;
@@ -26,6 +43,21 @@
 }
 .task-container {
   flex-grow: 1;
+  background-color: white;
+  padding: 15px;
+  border-radius: 5px;
+  input,
+  select,
+  textarea {
+    padding: 5px 10px;
+    font-size: 16px;
+    outline-color: $primary-color;
+  }
+  .task-head-title {
+    padding: 10px;
+    border: solid 1px $primary-color;
+    border-radius: 5px;
+  }
   .task-container-head {
     display: flex;
     justify-content: flex-end;
@@ -47,13 +79,29 @@
   .task-lists {
     .task-list {
       display: flex;
+      align-items: center;
       gap: 10px;
       padding: 10px;
-      cursor: pointer;
+      // cursor: pointer;
+      border-bottom: solid 1px lightgrey;
       .task-info {
         margin-left: auto;
         display: flex;
         gap: 10px;
+        div {
+          padding: 2.5px;
+          border-radius: 5px;
+          color: white;
+        }
+        .task-context {
+          background-color: #7ad97a;
+        }
+        .due-date {
+          background-color: #cd9e5f;
+        }
+        .given-to {
+          background-color: cornflowerblue;
+        }
       }
       .button-container {
         // margin-left: auto;
@@ -74,11 +122,11 @@
   padding: 25px;
   z-index: 5;
   label {
-    display: flex;
-    gap: 10px;
+    flex-basis: 30%;
   }
   input,
-  textarea {
+  textarea,
+  select {
     width: 100%;
   }
   textarea {
@@ -88,46 +136,40 @@
     margin-bottom: 25px;
   }
   .task-item {
+    display: flex;
+    gap: 10px;
     margin-bottom: 15px;
+  }
+  .button-container {
+    display: flex;
+    gap: 10px;
   }
 }
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.5);
   width: 100%;
   height: 100%;
 }
-// .main-content {
-//   display: flex;
-// }
-// .sidebar {
-//   position: fixed;
-//   top: 10%;
-//   left: 10px;
-//   width: 250px;
-//   overflow-y: auto;
-//   border: solid 1px green;
-//   height: 100%;
-// }
-// .task-container {
-//   position: relative;
-//   left: 265px;
-//   top: 10%;
-//   width: calc(100% - 350px);
-//   padding: 50px;
-//   .task-container-head {
-//     display: flex;
-//     justify-content: flex-end;
-//     gap: 15px;
-//   }
-// }
-// .task-form {
-//   .input-container {
-//     display: flex;
-//     input {
-//       flex-grow: 1;
-//     }
-//   }
-// }
+.btn-primary {
+  padding: 7px 20px;
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+}
+.btn-secondary {
+  padding: 7px 20px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+}
